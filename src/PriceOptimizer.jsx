@@ -90,90 +90,79 @@ export default function PriceOptimizer() {
 
   return (
     <div className="wrapper">
-      <table className="input-table">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Cantidad</th>
-            <th>Precio (S/)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Pechos</td>
-            <td>
-              <input
-                type="number"
-                value={pechos}
-                onChange={(e) => setPechos(e.target.value)}
-                min="0"
-              />
-            </td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Piernas</td>
-            <td>
-              <input
-                type="number"
-                value={piernas}
-                onChange={(e) => setPiernas(e.target.value)}
-                min="0"
-              />
-            </td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Entero</td>
-            <td></td>
-            <td>
-              <input
-                type="number"
-                value={costs.entero}
-                min="0"
-                onChange={(e) => setCosts({ ...costs, entero: parseFloat(e.target.value || "0") })}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Medio</td>
-            <td></td>
-            <td>
-              <input
-                type="number"
-                value={costs.medio}
-                min="0"
-                onChange={(e) => setCosts({ ...costs, medio: parseFloat(e.target.value || "0") })}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>¼ Pecho</td>
-            <td></td>
-            <td>
-              <input
-                type="number"
-                value={costs.cuartoPecho}
-                min="0"
-                onChange={(e) => setCosts({ ...costs, cuartoPecho: parseFloat(e.target.value || "0") })}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>¼ Pierna</td>
-            <td></td>
-            <td>
-              <input
-                type="number"
-                value={costs.cuartoPierna}
-                min="0"
-                onChange={(e) => setCosts({ ...costs, cuartoPierna: parseFloat(e.target.value || "0") })}
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <button onClick={handleOptimize}>Calcular</button>
+      <div className="input-section">
+        <div className="section-header">Cantidad</div>
+        <div className="input-group">
+          <label className="input-label" htmlFor="pechos">Pechos</label>
+          <input
+            className="input-field"
+            id="pechos"
+            type="number"
+            value={pechos}
+            onChange={(e) => setPechos(e.target.value)}
+            min="0"
+          />
+        </div>
+        <div className="input-group">
+          <label className="input-label" htmlFor="piernas">Piernas</label>
+          <input
+            className="input-field"
+            id="piernas"
+            type="number"
+            value={piernas}
+            onChange={(e) => setPiernas(e.target.value)}
+            min="0"
+          />
+        </div>
+      </div>
+      <div className="input-section">
+        <div className="section-header">Precio</div>
+        <div className="input-group">
+          <label className="input-label" htmlFor="entero">Entero</label>
+          <input
+            className="input-field"
+            id="entero"
+            type="number"
+            value={costs.entero}
+            min="0"
+            onChange={(e) => setCosts({ ...costs, entero: parseFloat(e.target.value || "0") })}
+          />
+        </div>
+        <div className="input-group">
+          <label className="input-label" htmlFor="medio">Medio</label>
+          <input
+            className="input-field"
+            id="medio"
+            type="number"
+            value={costs.medio}
+            min="0"
+            onChange={(e) => setCosts({ ...costs, medio: parseFloat(e.target.value || "0") })}
+          />
+        </div>
+        <div className="input-group">
+          <label className="input-label" htmlFor="cuartoPecho">¼ Pecho</label>
+          <input
+            className="input-field"
+            id="cuartoPecho"
+            type="number"
+            value={costs.cuartoPecho}
+            min="0"
+            onChange={(e) => setCosts({ ...costs, cuartoPecho: parseFloat(e.target.value || "0") })}
+          />
+        </div>
+        <div className="input-group">
+          <label className="input-label" htmlFor="cuartoPierna">¼ Pierna</label>
+          <input
+            className="input-field"
+            id="cuartoPierna"
+            type="number"
+            value={costs.cuartoPierna}
+            min="0"
+            onChange={(e) => setCosts({ ...costs, cuartoPierna: parseFloat(e.target.value || "0") })}
+          />
+        </div>
+      </div>
+      <button className="calculate-btn" onClick={handleOptimize}>Calcular</button>
       {result && (
         <div className="result">
           {renderType(
@@ -205,7 +194,7 @@ export default function PriceOptimizer() {
             result.cuartosPierna
           )}
           <p>
-            <strong>Costo total: S/ {result.cost.toFixed(2)}</strong>
+            <strong>Costo total: {result.cost.toFixed(2)}</strong>
           </p>
         </div>
       )}
