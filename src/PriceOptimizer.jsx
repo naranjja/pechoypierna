@@ -74,6 +74,20 @@ export default function PriceOptimizer() {
     setResult(combo);
   };
 
+  const pluralize = (count, singular, plural) => (count === 1 ? singular : plural);
+  const renderType = (count, typeSingular, typePlural, pechos, piernas) => {
+    if (count === 0) return null;
+    const parts = [];
+    if (pechos > 0) parts.push(`${pechos} ${pluralize(pechos, "pecho", "pechos")}`);
+    if (piernas > 0) parts.push(`${piernas} ${pluralize(piernas, "pierna", "piernas")}`);
+    return (
+      <p>
+        {count} {pluralize(count, typeSingular, typePlural)}
+        {parts.length > 0 && ` (${parts.join(", ")})`}
+      </p>
+    );
+  };
+
   return (
     <div className="wrapper">
       <table className="input-table">
@@ -162,11 +176,34 @@ export default function PriceOptimizer() {
       <button onClick={handleOptimize}>Calcular</button>
       {result && (
         <div className="result">
-          <h3>Mejor combinación</h3>
-          <p>Enteros: {result.enteros}</p>
-          <p>Medios: {result.medios}</p>
-          <p>¼ Pecho: {result.cuartosPecho}</p>
-          <p>¼ Pierna: {result.cuartosPierna}</p>
+          {renderType(
+            result.enteros,
+            "entero",
+            "enteros",
+            result.enteros * 2,
+            result.enteros * 2
+          )}
+          {renderType(
+            result.medios,
+            "medio",
+            "medios",
+            result.medios * 1,
+            result.medios * 1
+          )}
+          {renderType(
+            result.cuartosPecho,
+            "¼ pecho",
+            "¼ pechos",
+            result.cuartosPecho,
+            0
+          )}
+          {renderType(
+            result.cuartosPierna,
+            "¼ pierna",
+            "¼ piernas",
+            0,
+            result.cuartosPierna
+          )}
           <p>
             <strong>Costo total: S/ {result.cost.toFixed(2)}</strong>
           </p>
